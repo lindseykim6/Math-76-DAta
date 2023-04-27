@@ -3,6 +3,8 @@ library(igraphdata)
 install.packages("scales")                              # Install & load scales
 library("scales")
 
+# https://colab.research.google.com/drive/1KW4LKIxoxOqxvZVwYjorLDNY_NKTaB4f?usp=sharing
+
 #Year 1 plot
 full_women_graph <- read.csv("edges50.txt", sep = ",")
 women_graph <- graph_from_data_frame(full_women_graph, directed = T)
