@@ -11,11 +11,12 @@ women_graph <- graph_from_data_frame(full_women_graph, directed = T)
 
 V(women_graph)$label.cex = 0.75
 V(women_graph)$label.font = 2
-plot(women_graph, vertex.size=10,vertex.color= "red",edge.arrow.size = 0.3,edge.color= "black", layout=layout_nicely(women_graph), edge.size=0.2, main="Year 1")
+plot(women_graph, vertex.size=10,vertex.color= "red",edge.arrow.size = 0.1,edge.color= "black", layout=layout_nicely(women_graph), edge.size=0.2, main="Year 1")
 
 decomp = components(women_graph)
 largest_comp = which.max(decomp$csize)
 women = V(women_graph)[decomp$membership==largest_comp]
+women
 giant_comp = induced_subgraph(women_graph, women)
 V(giant_comp)$label.font = 2
 V(giant_comp)$label.cex= 0.75
@@ -145,8 +146,11 @@ plot(alc6, vertex.size=10, vertex.color= "light coral", edge.arrow.size = 0.2,ed
 #layout from stack overflow https://stackoverflow.com/questions/37378744/igraph-grouped-layout-based-on-attribute
 G_grouped = alc
 E(G_grouped)$weight = 1
+unique(V(alc)$alcc)
+print(V(alc)$alcc)
 for(i in unique(V(alc)$alcc)) {
   GroupV = which(V(alc)$alcc == i)
+  print(GroupV)
   G_grouped = add_edges(G_grouped, combn(GroupV, 2), attr=list(weight=10))
 }
 set.seed(567)
@@ -158,8 +162,8 @@ length(kc)
 sizes(kc)
 modularity(kc)
 
-plot(kc, alc, vertex.size=10, col= V(alc)$alcc, edge.arrow.size = 0.1,edge.color= "black", edge.size=0.2, main="Year 1 Alcohol")
-plot(alc, vertex.size=10, layout=Layout1, col= V(alc)$alcc, edge.arrow.size = 0.1,edge.color= "black", edge.size=0.2, main="Year 1 Alcohol")
+plot(kc, alc, vertex.size=10, vertex.color= V(alc)$alcc, edge.arrow.size = 0.1, edge.color= "black", edge.size=0.2, main="Year 1 Alcohol")
+plot(alc, vertex.size=10, layout=Layout1, vertex.color= V(alc)$alcc, edge.arrow.size = 0.1,edge.color= "black", edge.size=0.2, main="Year 1 Alcohol")
 legend(x= "topleft", legend=c("1 (non)", "2 (once or twice a year)", "3 (once a month)", "4 (once a week)", "5 (more than once a week)"), 
        pt.bg  = c("blue", "purple", "green", "yellow", "red"), pt.cex =1.5, pch    = 21, cex    = 0.5, bty    = "n")
 
